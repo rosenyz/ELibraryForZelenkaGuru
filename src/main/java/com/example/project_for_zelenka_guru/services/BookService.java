@@ -23,13 +23,13 @@ public class BookService {
     private final GenreService genreService;
     private final InfoBookFiller filler;
 
-    public ResponseEntity<?> getBooks(Long genreId, Short limit, Short page)
+    public ResponseEntity<?> getBooks(String searchValue, Long genreId, Short limit, Short page)
     {
         List<Book> books;
         List<Book> showBooks = new ArrayList<>(); // список для отсортированных книг по жанру, странице и лимитам
 
         if (genreId == null) {
-            books = bookRepository.findAll();
+            books = getBooksBySearchingValue(searchValue, null);
         }
         else {
             Genre genre = genreService.getGenreById(genreId);
@@ -39,7 +39,7 @@ public class BookService {
                         .status(HttpStatus.NOT_FOUND)
                         .body("Такого жанра не существует!");
 
-            books = bookRepository.findBooksByGenresContains(genre);
+            books = getBooksBySearchingValue(searchValue, genre);
         }
 
         if (books.isEmpty()) {
@@ -108,6 +108,25 @@ public class BookService {
         );
 
         return ResponseEntity.ok(book);
+    }
+
+    public List<Book> getBooksBySearchingValue(String searchValue, Genre genre) {
+        if (searchValue == null) {
+            if (genre == null)
+                return bookRepository.findAll();
+
+            return bookRepository.findBooksByGenresContains(genre);
+        }
+
+        log.info("Used searching value = {}", searchValue);
+
+        if (genre != null) {
+            // смотрите определение функции в BookRepository
+            return bookRepository.findBooksByAuthorContainingIgnoreCaseOrNameContainingIgnoreCaseAndGenresContains(searchValue, searchValue, genre);
+        }
+
+        // смотрите определение функции в BookRepository
+        return bookRepository.findBooksByAuthorContainingIgnoreCaseOrNameContainingIgnoreCase(searchValue, searchValue);
     }
 
     public ResponseEntity<?> getBookById(Long id) {

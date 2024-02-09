@@ -19,11 +19,12 @@ public class BookController {
     }
 
     @GetMapping // эндпоинт /api/v1/books?limit=n&page=k для просмотра всех жанров, где n - лимит жанров на странице, а k - страница
-    public ResponseEntity<?> getBooks(@RequestParam(name = "genre_id", required = false) Long genreId,
+    public ResponseEntity<?> getBooks(@RequestParam(name = "search", required = false) String searchValue,
+                                      @RequestParam(name = "genre_id", required = false) Long genreId,
                                       @RequestParam(name = "limit", required = false) Short limit,
                                       @RequestParam(name = "page", required = false) Short page)
     {
-        return bookService.getBooks(genreId, limit, page);
+        return bookService.getBooks(searchValue, genreId, limit, page);
     }
 
     @PostMapping("/add")
