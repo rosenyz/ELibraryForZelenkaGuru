@@ -47,6 +47,8 @@ public class GenreService {
         List<Genre> showGenres = new ArrayList<>(); // список для отсортированных жанров по странице и лимитам
 
         if (genres.isEmpty()) {
+            log.info("List genres isEmpty = {}", true);
+
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body("Ни одного жанра не было добавлено");
@@ -54,11 +56,15 @@ public class GenreService {
 
         if (limit != null && page == null) { page = 1; }
 
-        if (limit == null) {
+        if (limit == null || page < 1) {
+            log.info("Found all genres");
+
             return ResponseEntity.ok(genres);
         }
 
         if (genres.size() <= limit) {
+            log.info("Found all genres");
+
             return ResponseEntity.ok(genres);
         }
 
@@ -69,6 +75,8 @@ public class GenreService {
                 showGenres.add(genres.get(i));
             }
 
+            log.info("Found genres with (page > allowedPages), limit = {}", limit);
+
             return ResponseEntity.ok(showGenres);
         }
 
@@ -77,6 +85,12 @@ public class GenreService {
                 showGenres.add(genres.get(i - limit));
         }
 
+        log.info("Found genres with page = {}, limit = {}", page, limit);
+
         return ResponseEntity.ok(showGenres);
+    }
+
+    public Genre getGenreById(Long id) {
+        return genreRepository.findById(id).orElse(null);
     }
 }
