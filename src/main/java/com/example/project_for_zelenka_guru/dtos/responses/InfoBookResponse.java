@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.util.List;
 
+// DTO для вывода подробной информации о книге
 @Data
 @AllArgsConstructor
 public class InfoBookResponse {

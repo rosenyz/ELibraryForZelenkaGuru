@@ -10,6 +10,7 @@ import java.util.List;
 @Component
 public class InfoBookFiller {
 
+    // функция для заполнения DTO данными о книге
     public List<InfoBooksResponse> fillInfoBooks(List<Book> books) {
         List<InfoBooksResponse> booksInfo = new ArrayList<>();
 

@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.util.List;
 
+// DTO для добавления книги
 @Data
 public class AddBookRequest {
     @NotBlank

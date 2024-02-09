@@ -15,8 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class GenreService {
+    // внедрение зависимостей ( dependency injection )
     private final GenreRepository genreRepository;
 
+    // добавление жанра в базу данных
     public ResponseEntity<?> createGenre(String name) {
         if (name == null || name.length() <= 2) {
             return ResponseEntity
@@ -41,6 +43,7 @@ public class GenreService {
         return ResponseEntity.ok("Жанр успешно добавлен.");
     }
 
+    // аналогично с getBooks(), смотрите в BookService
     public ResponseEntity<?> getGenres(Short limit, Short page)
     {
         List<Genre> genres = genreRepository.findAll();
@@ -90,6 +93,7 @@ public class GenreService {
         return ResponseEntity.ok(showGenres);
     }
 
+    // получение модели жанра по id
     public Genre getGenreById(Long id) {
         return genreRepository.findById(id).orElse(null);
     }
