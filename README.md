@@ -10,6 +10,10 @@
 * Создайте базу данных в pgAdmin4. ***ВАЖНО!*** Если вы запускаете приложение через jar, а не IDE, то необходимо создать базу данных с названием **zelenka_guru**.
 > Если вы запускаете приложение через IDE, то пропишите в application.properties ```spring.datasource.url=jdbc:postgresql://localhost:5432/db_name```, где db_name - это название вашей базы данных.
 
+> Создание базы данных **db_name** с пользователем **YOURUSERNAME**, **YOURPASSWORD**
+
+>  https://github.com/rosenyz/ELibraryForZelenkaGuru/assets/49805290/d054906c-302f-48c1-ba52-f80bc573a030
+
 ## Как запустить приложение?
 * Если вы запускате через Jar:
 > https://github.com/rosenyz/ELibraryForZelenkaGuru/assets/49805290/24e9a861-ace8-4199-873c-f9ceed56aa86
